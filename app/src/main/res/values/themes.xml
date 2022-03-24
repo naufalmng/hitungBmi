@@ -14,5 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
         <item name="radioButtonStyle">@style/Widget.AppCompat.CompoundButton.RadioButton</item>
+        <item name="fontFamily">@font/alike</item>
     </style>
 </resources>

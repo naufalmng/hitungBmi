@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/alike"
+            
             android:paddingStart="0dp"
             android:paddingEnd="@dimen/_25sdp"
             android:text="@string/bmi_intro"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="@string/berat_badan"
         android:labelFor="@id/etBb"
-        android:fontFamily="@font/alike"
+        
         android:layout_marginTop="@dimen/_6sdp"
         app:layout_constraintBottom_toBottomOf="@id/tilBb"
         app:layout_constraintTop_toBottomOf="@id/tvIntro"
@@ -58,7 +58,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_55sdp"
                 android:hint="@string/berat_badan_kg"
-                android:fontFamily="@font/alike"
                 android:inputType="number"
                 android:autofillHints="Berat Badan" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
-        android:fontFamily="@font/alike"
+        
         app:layout_constraintStart_toStartOf="@id/tvBb"
         app:layout_constraintTop_toBottomOf="@id/tilBb"
         app:layout_constraintBottom_toBottomOf="@id/tilTb"
@@ -93,7 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_55sdp"
                 android:hint="@string/tinggi_badan_cm"
-                android:fontFamily="@font/alike"
                 android:inputType="number"
                 android:autofillHints="Tinggi Badan" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +104,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hitung"
         android:layout_marginTop="@dimen/_16sdp"
-        android:fontFamily="@font/alike"
+        
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/rgGender"
         app:layout_constraintTop_toBottomOf="@id/rgGender"
@@ -146,7 +144,7 @@
         android:layout_height="wrap_content"
         android:text="@string/jenis_kelamin"
         android:layout_marginTop="@dimen/_6sdp"
-        android:fontFamily="@font/alike"
+        
         app:layout_constraintStart_toStartOf="@id/tvTb"
         app:layout_constraintBottom_toBottomOf="@id/rgGender"
         app:layout_constraintTop_toBottomOf="@id/tilTb"
@@ -169,7 +167,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/alike"
             android:text="@string/pria" />
 
         <RadioButton
@@ -177,7 +174,6 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/alike"
             android:text="@string/wanita" />
     </RadioGroup>
 
