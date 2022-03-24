@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+
+
+    <TextView
+        android:id="@+id/tvIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bmi_intro"
+        android:paddingEnd="@dimen/_25sdp"
+        android:paddingStart="0dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tvBb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/berat_badan"
+        android:labelFor="@id/etBb"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@id/etBb"
+        app:layout_constraintTop_toBottomOf="@id/tvIntro"
+        app:layout_constraintStart_toStartOf="@id/tvIntro"
+
+        />
+
+    <EditText
+        android:id="@+id/etBb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="@id/tvIntro"
+        app:layout_constraintTop_toBottomOf="@id/tvIntro"
+        app:layout_constraintStart_toEndOf="@id/tvBb"
+
+        android:autofillHints="Berat Badan" />
+
+    <TextView
+        android:id="@+id/tvTb"
+        android:labelFor="@id/etTb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/tvBb"
+        app:layout_constraintTop_toBottomOf="@id/etBb"
+        app:layout_constraintBottom_toBottomOf="@id/etTb"
+        android:text="@string/tinggi_badan"
+
+        />
+
+
+
+    <EditText
+        android:id="@+id/etTb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/etBb"
+        app:layout_constraintEnd_toEndOf="@id/etBb"
+        app:layout_constraintStart_toStartOf="@id/etBb"
+        android:autofillHints="Tinggi Badan" />
+
+    <Button
+        android:id="@+id/btnHitung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hitung"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="@id/rgGender"
+        app:layout_constraintTop_toBottomOf="@id/rgGender"
+        tools:ignore="UsingOnClickInXml" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintStart_toEndOf="@id/btnHitung"
+        app:layout_constraintTop_toBottomOf="@id/rgGender"
+        app:layout_constraintEnd_toEndOf="@id/rgGender"
+        tools:ignore="UsingOnClickInXml" />
+
+    <View
+        android:id="@+id/divider"
+        android:visibility="gone"
+        android:background="?android:listDivider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/btnHitung"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/jenis_kelamin"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@id/tvTb"
+        app:layout_constraintBottom_toBottomOf="@id/rgGender"
+        app:layout_constraintTop_toBottomOf="@id/etTb"
+       />
+
+    <RadioGroup
+        android:id="@+id/rgGender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@id/etTb"
+        app:layout_constraintTop_toBottomOf="@id/etTb"
+        app:layout_constraintEnd_toEndOf="@id/etTb"
+        app:layout_constraintStart_toEndOf="@id/tvGender"
+        >
+
+        <RadioButton
+            android:id="@+id/rbPria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pria" />
+
+        <RadioButton
+            android:id="@+id/rbWanita"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wanita" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvBmi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/bmi"
+
+        />
+
+    <TextView
+        android:id="@+id/tvKategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kategori"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintTop_toBottomOf="@id/tvBmi"
+        app:layout_constraintStart_toStartOf="@id/tvBmi"
+        app:layout_constraintEnd_toEndOf="@id/tvBmi"
+
+        />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvKategori"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
