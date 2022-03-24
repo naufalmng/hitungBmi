@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupBtnListeners()
+        Activity().setupBtnOnLongClickListener(binding.btnHitung)
+        Activity().setupBtnOnLongClickListener(binding.btnReset)
     }
 
     private fun setupBtnListeners() {
@@ -65,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         binding.tvBmi.visibility = View.GONE
         binding.tvKategori.visibility = View.GONE
         binding.divider.visibility = View.GONE
-        binding.etBb.text.clear()
-        binding.etTb.text.clear()
+        binding.etBb.text?.clear()
+        binding.etTb.text?.clear()
         binding.tvBmi.text = null
         binding.tvKategori.text = null
         binding.rgGender.clearCheck()

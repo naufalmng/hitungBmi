@@ -3,6 +3,8 @@
     <color name="purple_200">#D500F9</color>
     <color name="purple_500">#D500F9</color>
     <color name="purple_700">#D500F9</color>
+    <color name="green_500">#37CF32</color>
+    <color name="green_700">#25DB2E</color>
     <color name="teal_200">#651FFF</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>

@@ -14,21 +14,19 @@
         android:focusableInTouchMode="true">
 
 
-
-    <TextView
-        android:id="@+id/tvIntro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bmi_intro"
-        android:paddingEnd="@dimen/_25sdp"
-        android:paddingStart="0dp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_16sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        />
+        <TextView
+            android:id="@+id/tvIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/alike"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/_25sdp"
+            android:text="@string/bmi_intro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvBb"
@@ -36,27 +34,35 @@
         android:layout_height="wrap_content"
         android:text="@string/berat_badan"
         android:labelFor="@id/etBb"
+        android:fontFamily="@font/alike"
         android:layout_marginTop="@dimen/_6sdp"
-        app:layout_constraintBottom_toBottomOf="@id/etBb"
+        app:layout_constraintBottom_toBottomOf="@id/tilBb"
         app:layout_constraintTop_toBottomOf="@id/tvIntro"
         app:layout_constraintStart_toStartOf="@id/tvIntro"
 
         />
 
-    <EditText
-        android:id="@+id/etBb"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_16sdp"
-        app:layout_constraintEnd_toEndOf="@id/tvIntro"
-        app:layout_constraintTop_toBottomOf="@id/tvIntro"
-        app:layout_constraintStart_toEndOf="@id/tvBb"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/tvIntro"
+            app:layout_constraintTop_toBottomOf="@id/tvIntro"
+            app:layout_constraintStart_toEndOf="@id/tvBb"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginStart="@dimen/_16sdp">
 
-        android:autofillHints="Berat Badan" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBb"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_55sdp"
+                android:hint="@string/berat_badan_kg"
+                android:fontFamily="@font/alike"
+                android:inputType="number"
+                android:autofillHints="Berat Badan" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/tvTb"
@@ -64,26 +70,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/alike"
         app:layout_constraintStart_toStartOf="@id/tvBb"
-        app:layout_constraintTop_toBottomOf="@id/etBb"
-        app:layout_constraintBottom_toBottomOf="@id/etTb"
+        app:layout_constraintTop_toBottomOf="@id/tilBb"
+        app:layout_constraintBottom_toBottomOf="@id/tilTb"
         android:text="@string/tinggi_badan"
 
         />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/tilBb"
+            app:layout_constraintEnd_toEndOf="@id/tilBb"
+            app:layout_constraintStart_toStartOf="@id/tilBb">
 
-    <EditText
-        android:id="@+id/etTb"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/etBb"
-        app:layout_constraintEnd_toEndOf="@id/etBb"
-        app:layout_constraintStart_toStartOf="@id/etBb"
-        android:autofillHints="Tinggi Badan" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTb"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_55sdp"
+                android:hint="@string/tinggi_badan_cm"
+                android:fontFamily="@font/alike"
+                android:inputType="number"
+                android:autofillHints="Tinggi Badan" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/btnHitung"
@@ -91,6 +106,8 @@
         android:layout_height="wrap_content"
         android:text="@string/hitung"
         android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/alike"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/rgGender"
         app:layout_constraintTop_toBottomOf="@id/rgGender"
         tools:ignore="UsingOnClickInXml" />
@@ -101,6 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reset"
+        android:textColor="@color/white"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintStart_toEndOf="@id/btnHitung"
         app:layout_constraintTop_toBottomOf="@id/rgGender"
@@ -128,9 +146,10 @@
         android:layout_height="wrap_content"
         android:text="@string/jenis_kelamin"
         android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/alike"
         app:layout_constraintStart_toStartOf="@id/tvTb"
         app:layout_constraintBottom_toBottomOf="@id/rgGender"
-        app:layout_constraintTop_toBottomOf="@id/etTb"
+        app:layout_constraintTop_toBottomOf="@id/tilTb"
        />
 
     <RadioGroup
@@ -139,9 +158,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintStart_toStartOf="@id/etTb"
-        app:layout_constraintTop_toBottomOf="@id/etTb"
-        app:layout_constraintEnd_toEndOf="@id/etTb"
+        app:layout_constraintStart_toStartOf="@id/tilTb"
+        app:layout_constraintTop_toBottomOf="@id/tilTb"
+        app:layout_constraintEnd_toEndOf="@id/tilTb"
         app:layout_constraintStart_toEndOf="@id/tvGender"
         >
 
@@ -150,6 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/alike"
             android:text="@string/pria" />
 
         <RadioButton
@@ -157,6 +177,7 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/alike"
             android:text="@string/wanita" />
     </RadioGroup>
 
