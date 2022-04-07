@@ -2,6 +2,7 @@ package org.d3if2146.hitungbmi
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi

@@ -52,6 +52,19 @@ class MainActivity : AppCompatActivity() {
         val berat = binding.etBb.text.toString()
         val tinggi = binding.etTb.text.toString()
         val selectedId = binding.rgGender.checkedRadioButtonId
+
+        if(TextUtils.isEmpty(berat)){
+            Toast.makeText(this, getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(TextUtils.isEmpty(tinggi)){
+            Toast.makeText(this, getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(selectedId == -1){
+            Toast.makeText(this, getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
+            return
+        }
         mainViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)
     }
 
