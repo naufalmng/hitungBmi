@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
+import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.databinding.ActivityMainBinding
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +23,18 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupBtnListeners()
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         Activity().setupBtnOnLongClickListener(binding.btnHitung)
         Activity().setupBtnOnLongClickListener(binding.btnReset)
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        mainViewModel.hasilBmi.observe(this) {
+            if (it != null) {
+                showResult(it)
+            }
+        }
     }
 
     private fun setupBtnListeners() {
@@ -36,30 +50,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun hitungBmi() {
         val berat = binding.etBb.text.toString()
-        if(TextUtils.isEmpty(berat)){
-            Toast.makeText(this, getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
-            return
-        }
         val tinggi = binding.etTb.text.toString()
-        if(TextUtils.isEmpty(berat)){
-            Toast.makeText(this, getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val cmTinggi = tinggi.toFloat() / 100
-        val bmi = berat.toFloat() / (cmTinggi * cmTinggi)
-
-
         val selectedId = binding.rgGender.checkedRadioButtonId
-        if(selectedId == -1){
-            Toast.makeText(this, getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
-            return
-        }
-        val isMale = selectedId == R.id.rbPria
-        val kategori = getKategori(bmi,isMale)
+        mainViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)
+    }
 
-        setResult(bmi,kategori)
-
+    private fun showResult(result: HasilBmi){
+        binding.tvBmi.text = getString(R.string.bmi,result.bmi)
+        binding.tvKategori.text = getString(R.string.kategori,getKategoriLabel(result.kategori))
+        binding.tvBmi.visibility = View.VISIBLE
+        binding.tvKategori.visibility = View.VISIBLE
+        binding.divider.visibility = View.VISIBLE
+        binding.btnReset.visibility = View.VISIBLE
     }
 
     private fun reset() {
@@ -74,29 +76,13 @@ class MainActivity : AppCompatActivity() {
         binding.rgGender.clearCheck()
     }
 
-    private fun setResult(bmi: Float,kategori: String) {
-        binding.tvBmi.visibility = View.VISIBLE
-        binding.tvKategori.visibility = View.VISIBLE
-        binding.divider.visibility = View.VISIBLE
-        binding.tvBmi.text = getString(R.string.bmi,bmi)
-        binding.tvKategori.text = getString(R.string.kategori,kategori)
-        binding.btnReset.visibility = View.VISIBLE
-    }
-
-    private fun getKategori(bmi: Float, isMale: Boolean): String {
-        val stringRes = if (isMale) {
-            when {
-                bmi < 20.5 -> R.string.kurus
-                bmi >= 27 -> R.string.gemuk
-                else -> R.string.ideal
-            }
-        } else{
-                when{
-                    bmi < 18.5 -> R.string.kurus
-                    bmi >= 25 -> R.string.gemuk
-                    else -> R.string.ideal
-                }
-            }
+    private fun getKategoriLabel(kategori: KategoriBmi): String{
+        val stringRes = when(kategori){
+            KategoriBmi.KURUS -> R.string.kurus
+                KategoriBmi.GEMUK -> R.string.gemuk
+                KategoriBmi.IDEAL -> R.string.ideal
+        }
         return getString(stringRes)
     }
+
 }
