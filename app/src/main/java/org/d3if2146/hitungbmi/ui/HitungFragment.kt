@@ -31,7 +31,7 @@ class HitungFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBtnListeners()
-        hitungViewModel = ViewModelProvider(this)[HitungViewModel::class.java]
+        hitungViewModel = ViewModelProvider(requireActivity())[HitungViewModel::class.java]
         requireActivity().setupBtnOnLongClickListener(binding.btnHitung)
         requireActivity().setupBtnOnLongClickListener(binding.btnReset)
         setupObservers()
@@ -61,15 +61,15 @@ class HitungFragment : Fragment() {
         val selectedId = binding.rgGender.checkedRadioButtonId
 
         if(TextUtils.isEmpty(berat)){
-            Toast.makeText(requireContext(), getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
             return
         }
         if(TextUtils.isEmpty(tinggi)){
-            Toast.makeText(requireContext(), getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
             return
         }
         if(selectedId == -1){
-            Toast.makeText(requireContext(), getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
             return
         }
         hitungViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)

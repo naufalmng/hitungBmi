@@ -1,5 +1,6 @@
 package org.d3if2146.hitungbmi.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,10 +26,11 @@ class SaranFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateUi(KategoriBmi.KURUS)
      }
 
     private fun updateUi(kategori: KategoriBmi){
-        val actionBar = (requireActivity() as MainActivity).supportActionBar
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         when(kategori){
             KategoriBmi.KURUS -> {
                 actionBar?.title = getString(R.string.judul_kurus)
