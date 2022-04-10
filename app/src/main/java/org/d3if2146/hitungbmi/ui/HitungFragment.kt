@@ -2,9 +2,7 @@ package org.d3if2146.hitungbmi.ui
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +25,7 @@ class HitungFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHitungBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -38,6 +37,21 @@ class HitungFragment : Fragment() {
         requireActivity().setupBtnOnLongClickListener(binding.btnReset)
         setupObservers()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.option_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_about -> {
+                findNavController().navigate(R.id.action_hitungFragment_to_saranFragment)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupObservers() {
         hitungViewModel.hasilBmi.observe(requireActivity()) {
             if (it != null) {
