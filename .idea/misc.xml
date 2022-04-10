@@ -5,6 +5,10 @@
       <map>
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/activity_main2.xml" value="0.29981884057971014" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_about.xml" value="0.30570652173913043" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_hitung.xml" value="0.30570652173913043" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_main.xml" value="0.30570652173913043" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_saran.xml" value="0.30570652173913043" />
       </map>
     </option>
   </component>

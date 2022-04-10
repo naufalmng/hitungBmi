@@ -1,36 +1,43 @@
-package org.d3if2146.hitungbmi
+package org.d3if2146.hitungbmi.ui
 
-import android.app.Activity
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
-import org.d3if2146.hitungbmi.databinding.ActivityMainBinding
-import kotlin.properties.Delegates
+import org.d3if2146.hitungbmi.databinding.FragmentHitungBinding
+import org.d3if2146.hitungbmi.setupBtnOnLongClickListener
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+class HitungFragment : Fragment() {
+    private var _binding: FragmentHitungBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var hitungViewModel: HitungViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        setupBtnListeners()
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        Activity().setupBtnOnLongClickListener(binding.btnHitung)
-        Activity().setupBtnOnLongClickListener(binding.btnReset)
-        setupObservers()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHitungBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupBtnListeners()
+        hitungViewModel = ViewModelProvider(this)[HitungViewModel::class.java]
+        requireActivity().setupBtnOnLongClickListener(binding.btnHitung)
+        requireActivity().setupBtnOnLongClickListener(binding.btnReset)
+        setupObservers()
+    }
     private fun setupObservers() {
-        mainViewModel.hasilBmi.observe(this) {
+        hitungViewModel.hasilBmi.observe(requireActivity()) {
             if (it != null) {
                 showResult(it)
             }
@@ -54,18 +61,18 @@ class MainActivity : AppCompatActivity() {
         val selectedId = binding.rgGender.checkedRadioButtonId
 
         if(TextUtils.isEmpty(berat)){
-            Toast.makeText(this, getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
             return
         }
         if(TextUtils.isEmpty(tinggi)){
-            Toast.makeText(this, getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.tinggi_invalid), Toast.LENGTH_SHORT).show()
             return
         }
         if(selectedId == -1){
-            Toast.makeText(this, getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.gender_invalid), Toast.LENGTH_SHORT).show()
             return
         }
-        mainViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)
+        hitungViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)
     }
 
     private fun showResult(result: HasilBmi){
@@ -92,10 +99,14 @@ class MainActivity : AppCompatActivity() {
     private fun getKategoriLabel(kategori: KategoriBmi): String{
         val stringRes = when(kategori){
             KategoriBmi.KURUS -> R.string.kurus
-                KategoriBmi.GEMUK -> R.string.gemuk
-                KategoriBmi.IDEAL -> R.string.ideal
+            KategoriBmi.GEMUK -> R.string.gemuk
+            KategoriBmi.IDEAL -> R.string.ideal
         }
         return getString(stringRes)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

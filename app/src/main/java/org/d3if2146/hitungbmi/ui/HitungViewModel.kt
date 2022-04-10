@@ -1,13 +1,12 @@
-package org.d3if2146.hitungbmi
+package org.d3if2146.hitungbmi.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 
-class MainViewModel: ViewModel() {
+class HitungViewModel: ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
     val hasilBmi : LiveData<HasilBmi?> get() = _hasilBmi
 

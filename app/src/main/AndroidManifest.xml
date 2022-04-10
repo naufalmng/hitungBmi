@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HitungBMI">
         <activity
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity3"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.HitungFragment"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
