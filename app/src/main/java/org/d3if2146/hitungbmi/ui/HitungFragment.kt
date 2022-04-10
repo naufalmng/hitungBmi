@@ -1,7 +1,10 @@
 package org.d3if2146.hitungbmi.ui
 
+import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,6 +16,7 @@ import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.databinding.FragmentHitungBinding
 import org.d3if2146.hitungbmi.setupBtnOnLongClickListener
+import java.lang.Exception
 
 class HitungFragment : Fragment() {
     private var _binding: FragmentHitungBinding? = null
@@ -46,7 +50,8 @@ class HitungFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.menu_about -> {
-                findNavController().navigate(R.id.action_hitungFragment_to_saranFragment)
+                findNavController().navigate(R.id.action_hitungFragment_to_aboutFragment)
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
@@ -68,6 +73,10 @@ class HitungFragment : Fragment() {
     }
 
     private fun setupBtnListeners() {
+        binding.btnBagikan.setOnClickListener{
+            shareData()
+        }
+
         binding.btnLihatSaran.setOnClickListener{
             hitungViewModel.mulaiNavigasi()
         }
@@ -79,6 +88,27 @@ class HitungFragment : Fragment() {
             binding.etBb.clearFocus()
             binding.etTb.clearFocus()
             reset()
+        }
+    }
+
+    private fun shareData() {
+        val selectedId = binding.rgGender.checkedRadioButtonId
+        val gender = if (selectedId == R.id.rbPria)
+            getString(R.string.pria)
+        else {
+            getString(R.string.wanita)
+        }
+        val msg = getString(R.string.bagikan_template,binding.etBb.text,binding.etTb.text,gender,binding.tvBmi.text,binding.tvKategori.text)
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        with(shareIntent){
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT,msg)
+        }
+        try {
+            startActivity(shareIntent)
+        }catch (e: Exception){
+            Log.e("INTENT SEND", e.toString())
+            return
         }
     }
 
@@ -109,8 +139,7 @@ class HitungFragment : Fragment() {
         binding.tvKategori.visibility = View.VISIBLE
         binding.divider.visibility = View.VISIBLE
         binding.btnReset.visibility = View.VISIBLE
-        binding.btnBagikan.visibility = View.VISIBLE
-        binding.btnLihatSaran.visibility = View.VISIBLE
+        binding.buttonGroup.visibility = View.VISIBLE
     }
 
     private fun reset() {
@@ -118,8 +147,7 @@ class HitungFragment : Fragment() {
         binding.tvBmi.visibility = View.GONE
         binding.tvKategori.visibility = View.GONE
         binding.divider.visibility = View.GONE
-        binding.btnBagikan.visibility = View.GONE
-        binding.btnLihatSaran.visibility = View.GONE
+        binding.buttonGroup.visibility = View.GONE
         binding.etBb.text?.clear()
         binding.etTb.text?.clear()
         binding.tvBmi.text = null

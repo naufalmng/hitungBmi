@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.databinding.FragmentAboutBinding
 
-class AboutFragment : Fragment() {
+class AboutFragment : Fragment(R.layout.fragment_about) {
    private var _binding: FragmentAboutBinding? = null
    private val binding get() = _binding!!
 

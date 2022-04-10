@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="org.d3if2146.hitungbmi.ui.AboutFragment"
-        android:label="fragment_about"
+        android:label="@string/tentang_aplikasi"
         tools:layout="@layout/fragment_about" />
 
 </navigation>
