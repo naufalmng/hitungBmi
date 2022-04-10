@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.navArgs
 import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.databinding.FragmentSaranBinding
@@ -14,6 +16,7 @@ import org.d3if2146.hitungbmi.databinding.FragmentSaranBinding
 class SaranFragment : Fragment() {
     private var _binding: FragmentSaranBinding? = null
     private val binding get() = _binding!!
+    private val args: SaranFragmentArgs by navArgs()
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +30,7 @@ class SaranFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateUi(KategoriBmi.KURUS)
+        updateUi(args.kategori)
      }
 
     private fun updateUi(kategori: KategoriBmi){

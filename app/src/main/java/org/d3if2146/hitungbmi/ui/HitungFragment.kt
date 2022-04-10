@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
@@ -42,9 +44,20 @@ class HitungFragment : Fragment() {
                 showResult(it)
             }
         }
+        hitungViewModel.navigasi.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            findNavController().navigate(
+                HitungFragmentDirections.actionHitungFragmentToSaranFragment(it)
+            )
+            hitungViewModel.selesaiNavigasi()
+        }
     }
 
     private fun setupBtnListeners() {
+        binding.btnLihatSaran.setOnClickListener{
+            hitungViewModel.mulaiNavigasi()
+        }
+
         binding.btnHitung.setOnClickListener{
             hitungBmi()
         }
@@ -82,6 +95,8 @@ class HitungFragment : Fragment() {
         binding.tvKategori.visibility = View.VISIBLE
         binding.divider.visibility = View.VISIBLE
         binding.btnReset.visibility = View.VISIBLE
+        binding.btnBagikan.visibility = View.VISIBLE
+        binding.btnLihatSaran.visibility = View.VISIBLE
     }
 
     private fun reset() {
@@ -89,6 +104,8 @@ class HitungFragment : Fragment() {
         binding.tvBmi.visibility = View.GONE
         binding.tvKategori.visibility = View.GONE
         binding.divider.visibility = View.GONE
+        binding.btnBagikan.visibility = View.GONE
+        binding.btnLihatSaran.visibility = View.GONE
         binding.etBb.text?.clear()
         binding.etTb.text?.clear()
         binding.tvBmi.text = null

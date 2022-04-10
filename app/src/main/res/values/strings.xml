@@ -8,6 +8,7 @@
     <string name="pria">Pria</string>
     <string name="wanita">Wanita</string>
     <string name="hitung">Hitung</string>
+    <string name="hitungBmi">Hitung BMI</string>
     <string name="bmi">BMI: %1$.2f</string>
     <string name="reset">Reset</string>
     <string name="kurus">Kurus</string>

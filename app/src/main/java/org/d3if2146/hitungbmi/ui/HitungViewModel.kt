@@ -10,6 +10,16 @@ class HitungViewModel: ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
     val hasilBmi : LiveData<HasilBmi?> get() = _hasilBmi
 
+    private var _navigasi = MutableLiveData<KategoriBmi?>()
+    val navigasi: LiveData<KategoriBmi?> get() = _navigasi
+
+    fun mulaiNavigasi(){
+        _navigasi.value = hasilBmi.value?.kategori
+    }
+    fun selesaiNavigasi(){
+        _navigasi.value = null
+    }
+
 
    fun hitungBmi(berat: String, tinggi: String, isMale: Boolean){
         val cmTinggi = tinggi.toFloat()/100
