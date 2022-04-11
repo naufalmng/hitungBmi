@@ -26,6 +26,9 @@
         <argument
             android:name="kategori"
             app:argType="org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi" />
+        <argument
+            android:name="userInput"
+            app:argType="org.d3if2146.hitungbmi.core.data.source.model.UserInput" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"

@@ -9,16 +9,19 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
+import org.d3if2146.hitungbmi.core.data.source.model.UserInput
 import org.d3if2146.hitungbmi.databinding.FragmentHitungBinding
 import org.d3if2146.hitungbmi.setupBtnOnLongClickListener
 import java.lang.Exception
 
 class HitungFragment : Fragment() {
+
     private var _binding: FragmentHitungBinding? = null
     private val binding get() = _binding!!
     private lateinit var hitungViewModel: HitungViewModel
@@ -58,6 +61,7 @@ class HitungFragment : Fragment() {
     }
 
     private fun setupObservers() {
+
         hitungViewModel.hasilBmi.observe(requireActivity()) {
             if (it != null) {
                 showResult(it)
@@ -66,11 +70,12 @@ class HitungFragment : Fragment() {
         hitungViewModel.navigasi.observe(viewLifecycleOwner) {
             if (it == null) return@observe
             findNavController().navigate(
-                HitungFragmentDirections.actionHitungFragmentToSaranFragment(it)
+                HitungFragmentDirections.actionHitungFragmentToSaranFragment(it,getUserInput())
             )
             hitungViewModel.selesaiNavigasi()
         }
     }
+
 
     private fun setupBtnListeners() {
         binding.btnBagikan.setOnClickListener{
@@ -112,10 +117,27 @@ class HitungFragment : Fragment() {
         }
     }
 
+    private fun getUserInput(): UserInput {
+        val berat = binding.etBb.text.toString()
+        val tinggi = binding.etTb.text.toString()
+        val selectedId = binding.rgGender.checkedRadioButtonId
+        val gender = if (selectedId == R.id.rbPria)
+            getString(R.string.pria)
+        else {
+            getString(R.string.wanita)
+        }
+        return hitungViewModel.getUserInput(berat,tinggi,gender)
+    }
+
     private fun hitungBmi() {
         val berat = binding.etBb.text.toString()
         val tinggi = binding.etTb.text.toString()
         val selectedId = binding.rgGender.checkedRadioButtonId
+        val gender = if (selectedId == R.id.rbPria)
+            getString(R.string.pria)
+        else {
+            getString(R.string.wanita)
+        }
 
         if(TextUtils.isEmpty(berat)){
             Toast.makeText(context, getString(R.string.berat_invalid), Toast.LENGTH_SHORT).show()
@@ -130,6 +152,7 @@ class HitungFragment : Fragment() {
             return
         }
         hitungViewModel.hitungBmi(berat,tinggi,selectedId == R.id.rbPria)
+        hitungViewModel.saveUserInput(berat,tinggi,gender)
     }
 
     private fun showResult(result: HasilBmi){
@@ -153,6 +176,7 @@ class HitungFragment : Fragment() {
         binding.tvBmi.text = null
         binding.tvKategori.text = null
         binding.rgGender.clearCheck()
+        hitungViewModel.deleteUserInput()
     }
 
     private fun getKategoriLabel(kategori: KategoriBmi): String{

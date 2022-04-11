@@ -1,17 +1,18 @@
 package org.d3if2146.hitungbmi.ui
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import org.d3if2146.hitungbmi.R
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.databinding.FragmentSaranBinding
+import java.lang.Exception
 
 class SaranFragment : Fragment() {
     private var _binding: FragmentSaranBinding? = null
@@ -24,14 +25,50 @@ class SaranFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSaranBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateUi(KategoriBmi.KURUS)
         updateUi(args.kategori)
      }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.saran_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_share -> {
+                shareSaran()
+                return true
+            }
+        }
+        return onOptionsItemSelected(item)
+    }
+
+    private fun shareSaran() {
+
+        val berat = binding.tvBb.text
+        val tinggi = binding.tvTb.text
+        val gender = binding.tvGender.text
+        val saran = binding.textView.text
+
+        val msg = getString(R.string.bagikan_saran_template,berat,tinggi,gender,"Kategori: ${args.kategori}\n","Saran:\n${saran}")
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        with(shareIntent){
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT,msg)
+        }
+        try {
+            startActivity(shareIntent)
+        }catch (e: Exception){
+            Log.e("INTENT SEND", e.toString())
+            return
+        }
+    }
 
     private fun updateUi(kategori: KategoriBmi){
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -53,6 +90,9 @@ class SaranFragment : Fragment() {
             }
 
         }
+        binding.tvBb.text = getString(R.string.berat,args.userInput.berat)
+        binding.tvTb.text =  getString(R.string.tinggi,args.userInput.tinggi)
+        binding.tvGender.text =  getString(R.string.gender,args.userInput.gender)
     }
     
     override fun onDestroyView() {

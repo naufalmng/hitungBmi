@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/activity_main2.xml" value="0.29981884057971014" />
-        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_about.xml" value="0.30570652173913043" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_about.xml" value="0.5" />
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_hitung.xml" value="0.30570652173913043" />
         <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_main.xml" value="0.30570652173913043" />
-        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_saran.xml" value="0.30570652173913043" />
-        <entry key="..\:/proyek/HitungBMI/app/src/main/res/menu/option_menu.xml" value="0.159375" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/layout/fragment_saran.xml" value="0.33" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/menu/option_menu.xml" value="0.22" />
+        <entry key="..\:/proyek/HitungBMI/app/src/main/res/menu/saran_menu.xml" value="2.65" />
       </map>
     </option>
   </component>

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
+import org.d3if2146.hitungbmi.core.data.source.model.UserInput
 
 class HitungViewModel: ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
@@ -19,6 +20,18 @@ class HitungViewModel: ViewModel() {
     fun selesaiNavigasi(){
         _navigasi.value = null
     }
+
+    fun getUserInput(berat: String, tinggi: String, gender: String): UserInput{
+        return UserInput(berat,tinggi,gender)
+    }
+
+    fun saveUserInput(berat: String, tinggi: String, gender: String){
+        UserInput(berat,tinggi,gender)
+    }
+    fun deleteUserInput(){
+        UserInput("","","")
+    }
+
 
 
    fun hitungBmi(berat: String, tinggi: String, isMale: Boolean){
