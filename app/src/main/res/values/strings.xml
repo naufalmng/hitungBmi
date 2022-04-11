@@ -29,7 +29,7 @@
     <string name="gender_invalid">Pilih jenis kelamin.</string>
     <string name="berat">Berat Badan (Kg): %1$s</string>
     <string name="tinggi">Tinggi Badan (Cm): %1$s</string>
-    <string name="gender">Tinggi Badan (Cm): %1$s</string>
+    <string name="gender">Jenis Kelamin: %1$s</string>
     <string name="berat_badan_kg">Berat Badan (Kg)</string>
     <string name="tinggi_badan_cm">Tinggi Badan (Cm)</string>
     <string name="lihat_saran">LIHAT SARAN</string>
