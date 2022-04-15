@@ -16,7 +16,7 @@ import org.d3if2146.hitungbmi.core.data.source.model.UserInput
 class HitungViewModel(private val db: BmiDao): ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
     val hasilBmi : LiveData<HasilBmi?> get() = _hasilBmi
-    val data = db.getLastBmi()
+//    val data = db.getLastBmi()
 
     private var _navigasi = MutableLiveData<KategoriBmi?>()
     val navigasi: LiveData<KategoriBmi?> get() = _navigasi

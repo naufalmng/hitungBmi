@@ -83,10 +83,10 @@ class HitungFragment : Fragment() {
             )
             hitungViewModel.selesaiNavigasi()
         }
-        hitungViewModel.data.observe(viewLifecycleOwner) {
-            if (it == null) return@observe
-            Log.d("HitungFragment", "Data tersimpan. ID ${it.id}")
-        }
+//        hitungViewModel.data.observe(viewLifecycleOwner) {
+//            if (it == null) return@observe
+//            Log.d("HitungFragment", "Data tersimpan. ID ${it.id}")
+//        }
     }
 
 
