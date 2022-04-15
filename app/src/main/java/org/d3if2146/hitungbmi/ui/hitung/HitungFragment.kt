@@ -1,7 +1,6 @@
-package org.d3if2146.hitungbmi.ui
+package org.d3if2146.hitungbmi.ui.hitung
 
 import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -9,10 +8,9 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import org.d3if2146.hitungbmi.R
+import org.d3if2146.hitungbmi.core.data.source.db.BmiDb
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.core.data.source.model.UserInput
@@ -24,7 +22,20 @@ class HitungFragment : Fragment() {
 
     private var _binding: FragmentHitungBinding? = null
     private val binding get() = _binding!!
-    private lateinit var hitungViewModel: HitungViewModel
+    private val hitungViewModel: HitungViewModel by lazy {
+        val db = BmiDb.getInstance(requireContext())
+        val factory = HitungViewModelFactory(db.dao)
+        ViewModelProvider(this, factory)[HitungViewModel::class.java]
+    }
+
+
+    init{
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,12 +45,12 @@ class HitungFragment : Fragment() {
         _binding = FragmentHitungBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBtnListeners()
-        hitungViewModel = ViewModelProvider(requireActivity())[HitungViewModel::class.java]
         requireActivity().setupBtnOnLongClickListener(binding.btnHitung)
         requireActivity().setupBtnOnLongClickListener(binding.btnReset)
         setupObservers()
@@ -61,7 +72,6 @@ class HitungFragment : Fragment() {
     }
 
     private fun setupObservers() {
-
         hitungViewModel.hasilBmi.observe(requireActivity()) {
             if (it != null) {
                 showResult(it)
@@ -74,25 +84,29 @@ class HitungFragment : Fragment() {
             )
             hitungViewModel.selesaiNavigasi()
         }
+        hitungViewModel.data.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            Log.d("HitungFragment", "Data tersimpan. ID ${it.id}")
+        }
     }
 
 
     private fun setupBtnListeners() {
-        binding.btnBagikan.setOnClickListener{
-            shareData()
-        }
-
-        binding.btnLihatSaran.setOnClickListener{
-            hitungViewModel.mulaiNavigasi()
-        }
-
-        binding.btnHitung.setOnClickListener{
-            hitungBmi()
-        }
-        binding.btnReset.setOnClickListener{
-            binding.etBb.clearFocus()
-            binding.etTb.clearFocus()
-            reset()
+        with(binding){
+            btnBagikan.setOnClickListener{
+                shareData()
+            }
+            btnLihatSaran.setOnClickListener{
+                hitungViewModel.mulaiNavigasi()
+            }
+            btnHitung.setOnClickListener{
+                hitungBmi()
+            }
+            btnReset.setOnClickListener{
+                binding.etBb.clearFocus()
+                binding.etTb.clearFocus()
+                reset()
+            }
         }
     }
 

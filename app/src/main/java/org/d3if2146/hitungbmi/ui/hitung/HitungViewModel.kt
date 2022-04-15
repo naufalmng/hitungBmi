@@ -1,15 +1,22 @@
-package org.d3if2146.hitungbmi.ui
+package org.d3if2146.hitungbmi.ui.hitung
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.d3if2146.hitungbmi.core.data.source.db.BmiDao
+import org.d3if2146.hitungbmi.core.data.source.db.BmiEntity
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.core.data.source.model.UserInput
 
-class HitungViewModel: ViewModel() {
+class HitungViewModel(private val db: BmiDao): ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
     val hasilBmi : LiveData<HasilBmi?> get() = _hasilBmi
+    val data = db.getLastBmi()
 
     private var _navigasi = MutableLiveData<KategoriBmi?>()
     val navigasi: LiveData<KategoriBmi?> get() = _navigasi
@@ -35,11 +42,20 @@ class HitungViewModel: ViewModel() {
 
 
    fun hitungBmi(berat: String, tinggi: String, isMale: Boolean){
+       viewModelScope.launch {
+           withContext(Dispatchers.IO){
+               val dataBmi = BmiEntity(berat = berat.toFloat(),tinggi = tinggi.toFloat(),isMale = isMale)
+               db.insert(dataBmi)
+           }
+       }
+
         val cmTinggi = tinggi.toFloat()/100
         val bmi = berat.toFloat() / (cmTinggi * cmTinggi)
         val kategori = getKategori(bmi,isMale)
         _hasilBmi.value = HasilBmi(bmi,kategori)
+
     }
+
 
     private fun getKategori(bmi: Float, isMale: Boolean): KategoriBmi {
         val kategori = if (isMale) {

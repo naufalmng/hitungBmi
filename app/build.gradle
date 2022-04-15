@@ -8,6 +8,12 @@ plugins {
 android {
     compileSdk 31
 
+    kotlinOptions {
+        freeCompilerArgs += [
+                "-Xjvm-default=all",
+        ]
+    }
+
     defaultConfig {
         applicationId "org.d3if2146.hitungbmi"
         minSdk 21
