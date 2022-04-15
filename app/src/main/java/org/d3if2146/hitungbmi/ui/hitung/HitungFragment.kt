@@ -28,11 +28,6 @@ class HitungFragment : Fragment() {
         ViewModelProvider(this, factory)[HitungViewModel::class.java]
     }
 
-
-    init{
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -65,6 +60,10 @@ class HitungFragment : Fragment() {
         when(item.itemId){
             R.id.menu_about -> {
                 findNavController().navigate(R.id.action_hitungFragment_to_aboutFragment)
+                return true
+            }
+            R.id.menu_histori -> {
+                findNavController().navigate(R.id.action_hitungFragment_to_historyFragment)
                 return true
             }
         }
