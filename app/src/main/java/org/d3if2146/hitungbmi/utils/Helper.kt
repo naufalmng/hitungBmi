@@ -4,6 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.MotionEvent
 import android.view.View
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.d3if2146.hitungbmi.core.data.source.db.BmiEntity
+import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
+import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 
 @SuppressLint("ClickableViewAccessibility")
 fun Context.setupBtnOnLongClickListener(view: View) {
@@ -19,4 +26,30 @@ fun Context.setupBtnOnLongClickListener(view: View) {
         }
         false
     }
+}
+
+fun BmiEntity.hitungBmi(): HasilBmi{
+
+    val cmTinggi = tinggi/100
+    val bmi = berat / (cmTinggi * cmTinggi)
+    val kategori = getKategori(bmi,isMale)
+    return HasilBmi(bmi,kategori)
+
+}
+
+fun getKategori(bmi: Float, isMale: Boolean): KategoriBmi {
+    val kategori = if (isMale) {
+        when {
+            bmi < 20.5 -> KategoriBmi.KURUS
+            bmi >= 27 -> KategoriBmi.GEMUK
+            else -> KategoriBmi.IDEAL
+        }
+    } else{
+        when{
+            bmi < 18.5 -> KategoriBmi.KURUS
+            bmi >= 25 -> KategoriBmi.GEMUK
+            else -> KategoriBmi.IDEAL
+        }
+    }
+    return kategori
 }

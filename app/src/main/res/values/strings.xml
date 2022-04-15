@@ -30,6 +30,8 @@
     <string name="berat">Berat Badan (Kg): %1$s</string>
     <string name="tinggi">Tinggi Badan (Cm): %1$s</string>
     <string name="gender">Jenis Kelamin: %1$s</string>
+    <string name="hasil_histori">BMI: %1$.2f - %2$s</string>
+    <string name="data_histori">BB: %1$.1f - TB: %2$.1f - %3$s</string>
     <string name="berat_badan_kg">Berat Badan (Kg)</string>
     <string name="tinggi_badan_cm">Tinggi Badan (Cm)</string>
     <string name="lihat_saran">LIHAT SARAN</string>

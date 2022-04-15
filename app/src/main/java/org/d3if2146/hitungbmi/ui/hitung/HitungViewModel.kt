@@ -12,6 +12,7 @@ import org.d3if2146.hitungbmi.core.data.source.db.BmiEntity
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.core.data.source.model.UserInput
+import org.d3if2146.hitungbmi.hitungBmi
 
 class HitungViewModel(private val db: BmiDao): ViewModel() {
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
@@ -42,35 +43,13 @@ class HitungViewModel(private val db: BmiDao): ViewModel() {
 
 
    fun hitungBmi(berat: String, tinggi: String, isMale: Boolean){
+       val dataBmi = BmiEntity(berat = berat.toFloat(),tinggi = tinggi.toFloat(),isMale = isMale)
+       _hasilBmi.value = dataBmi.hitungBmi()
        viewModelScope.launch {
            withContext(Dispatchers.IO){
-               val dataBmi = BmiEntity(berat = berat.toFloat(),tinggi = tinggi.toFloat(),isMale = isMale)
                db.insert(dataBmi)
            }
        }
-
-        val cmTinggi = tinggi.toFloat()/100
-        val bmi = berat.toFloat() / (cmTinggi * cmTinggi)
-        val kategori = getKategori(bmi,isMale)
-        _hasilBmi.value = HasilBmi(bmi,kategori)
-
     }
 
-
-    private fun getKategori(bmi: Float, isMale: Boolean): KategoriBmi {
-        val kategori = if (isMale) {
-            when {
-                bmi < 20.5 -> KategoriBmi.KURUS
-                bmi >= 27 -> KategoriBmi.GEMUK
-                else -> KategoriBmi.IDEAL
-            }
-        } else{
-            when{
-                bmi < 18.5 -> KategoriBmi.KURUS
-                bmi >= 25 -> KategoriBmi.GEMUK
-                else -> KategoriBmi.IDEAL
-            }
-        }
-        return kategori
-    }
 }

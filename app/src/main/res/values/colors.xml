@@ -7,6 +7,9 @@
     <color name="green_700">#25DB2E</color>
     <color name="teal_200">#651FFF</color>
     <color name="teal_700">#FF018786</color>
+    <color name="kurus">#F57F17</color>
+    <color name="ideal">#2E7D32</color>
+    <color name="gemuk">#D32F2F</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
