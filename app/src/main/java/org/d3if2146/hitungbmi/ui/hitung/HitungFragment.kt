@@ -110,7 +110,7 @@ class HitungFragment : Fragment() {
     }
 
     private fun shareData() {
-        val selectedId = binding.rgGender.checkedRadioButtonId
+        val selectedId = binding.rgGender.rgGender.checkedRadioButtonId
         val gender = if (selectedId == R.id.rbPria)
             getString(R.string.pria)
         else {
@@ -133,7 +133,7 @@ class HitungFragment : Fragment() {
     private fun getUserInput(): UserInput {
         val berat = binding.etBb.text.toString()
         val tinggi = binding.etTb.text.toString()
-        val selectedId = binding.rgGender.checkedRadioButtonId
+        val selectedId = binding.rgGender.rgGender.checkedRadioButtonId
         val gender = if (selectedId == R.id.rbPria)
             getString(R.string.pria)
         else {
@@ -145,7 +145,7 @@ class HitungFragment : Fragment() {
     private fun hitungBmi() {
         val berat = binding.etBb.text.toString()
         val tinggi = binding.etTb.text.toString()
-        val selectedId = binding.rgGender.checkedRadioButtonId
+        val selectedId = binding.rgGender.rgGender.checkedRadioButtonId
         val gender = if (selectedId == R.id.rbPria)
             getString(R.string.pria)
         else {
@@ -188,7 +188,7 @@ class HitungFragment : Fragment() {
         binding.etTb.text?.clear()
         binding.tvBmi.text = null
         binding.tvKategori.text = null
-        binding.rgGender.clearCheck()
+        binding.rgGender.rgGender.clearCheck()
         hitungViewModel.deleteUserInput()
     }
 

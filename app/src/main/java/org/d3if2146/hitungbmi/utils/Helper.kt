@@ -2,9 +2,14 @@ package org.d3if2146.hitungbmi
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.MotionEvent
 import android.view.View
-import androidx.lifecycle.viewModelScope
+import android.view.Window
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +31,24 @@ fun Context.setupBtnOnLongClickListener(view: View) {
         }
         false
     }
+}
+
+//fun buildMaterialAlertDialog(context: Context,lifecycleOwner: LifecycleOwner,viewmodel: ViewModel) {
+//    MaterialAlertDialogBuilder(context)
+//        .setMessage(R.string.konfirmasi_hapus)
+//        .setPositiveButton(context.getString(R.string.hapus)) { _, _ ->
+//            lifecycleOwner.lifecycleScope.launch {
+//                historiViewModel.clearAllData()
+//            }
+//        }
+//        .setNegativeButton(context.getString(R.string.batal)) { dialog, _ ->
+//            dialog.cancel()
+//        }.show()
+//}
+fun DialogFragment.setupDialogTheme() {
+    dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    setStyle(DialogFragment.STYLE_NO_FRAME,android.R.style.Theme)
 }
 
 fun BmiEntity.hitungBmi(): HasilBmi{

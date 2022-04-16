@@ -7,14 +7,20 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.d3if2146.hitungbmi.core.data.repository.AppRepository
 import org.d3if2146.hitungbmi.core.data.source.db.BmiDao
 import org.d3if2146.hitungbmi.core.data.source.db.BmiEntity
 import org.d3if2146.hitungbmi.core.data.source.model.HasilBmi
 import org.d3if2146.hitungbmi.core.data.source.model.KategoriBmi
 import org.d3if2146.hitungbmi.core.data.source.model.UserInput
 import org.d3if2146.hitungbmi.hitungBmi
+import org.d3if2146.hitungbmi.ui.histori.HistoriAdapter
 
-class HitungViewModel(private val db: BmiDao): ViewModel() {
+class HitungViewModel(db: BmiDao): ViewModel() {
+    private val appRepository: AppRepository = AppRepository(db)
+    private val historiAdapter: HistoriAdapter = HistoriAdapter()
+    val data : BmiEntity get() = (appRepository.getArrayListOfDataBmi())
+
     private var _hasilBmi = MutableLiveData<HasilBmi?>()
     val hasilBmi : LiveData<HasilBmi?> get() = _hasilBmi
 //    val data = db.getLastBmi()
@@ -44,10 +50,11 @@ class HitungViewModel(private val db: BmiDao): ViewModel() {
 
    fun hitungBmi(berat: String, tinggi: String, isMale: Boolean){
        val dataBmi = BmiEntity(berat = berat.toFloat(),tinggi = tinggi.toFloat(),isMale = isMale)
+
        _hasilBmi.value = dataBmi.hitungBmi()
        viewModelScope.launch {
            withContext(Dispatchers.IO){
-               db.insert(dataBmi)
+               appRepository.insertData(dataBmi)
            }
        }
     }
