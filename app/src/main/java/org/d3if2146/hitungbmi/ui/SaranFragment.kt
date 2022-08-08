@@ -46,7 +46,7 @@ class SaranFragment : Fragment() {
                 return true
             }
         }
-        return onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun shareSaran() {
