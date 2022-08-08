@@ -18,6 +18,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
        savedInstanceState: Bundle?
    ): View {
        _binding = FragmentAboutBinding.inflate(inflater, container, false)
+       setHasOptionsMenu(true)
        return binding.root
    }
 
